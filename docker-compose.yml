@@ -1,0 +1,47 @@
+services:
+    shop_assistant_web:
+        container_name: shop_assistant_web
+        image: nginx:alpine
+        ports:
+            - "8020:80"
+        volumes:
+            - ./:/var/www
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - shop_assistant_app
+        networks:
+            - shop_assistant_network
+
+    shop_assistant_app:
+        container_name: shop_assistant_app
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        depends_on:
+            - shop_assistant_db
+        volumes:
+            - ./:/var/www
+        networks:
+            - shop_assistant_network
+        ports:
+            - "9090:9000"
+
+    shop_assistant_db:
+        image: mysql
+        container_name: shop_assistant_db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - shop_assistant_database:/var/lib/mysql
+        networks:
+            - shop_assistant_network
+        expose:
+            - 3306
+networks:
+    shop_assistant_network:
+        driver: bridge
+volumes:
+    shop_assistant_database:
