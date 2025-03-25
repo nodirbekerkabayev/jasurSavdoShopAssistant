@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('client_phone');
             $table->date('date');
             $table->double('amount');
+            $table->string('image');
             $table->enum('status', ['pending', 'paid'])->default('pending');
+            $table->enum('recorded_by', ['jasur', 'nodira', 'hilola']);
             $table->timestamps();
         });
     }

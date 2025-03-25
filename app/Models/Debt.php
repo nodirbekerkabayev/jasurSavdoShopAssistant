@@ -16,6 +16,8 @@ class Debt extends Model
         'client_phone',
         'date',
         'amount',
+        'image',
         'status',
+        'recorded_by'
     ];
 }

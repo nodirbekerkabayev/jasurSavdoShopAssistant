@@ -22,7 +22,9 @@ class DebtFactory extends Factory
             'client_phone' => $this->faker->phoneNumber(),
             'date' => $this->faker->date(),
             'amount' => $this->faker->numberBetween(1000, 999999),
-            'status' => $this->faker->randomElement(['pending', 'paid'])
+            'image' => $this->faker->imageUrl(),
+            'status' => $this->faker->randomElement(['pending', 'paid']),
+            'recorded_by' => $this->faker->randomElement(['jasur', 'nodira', 'hilola'])
         ];
     }
 }

@@ -30,7 +30,9 @@ class DebtController extends Controller
             'client_phone' => 'required',
             'date' => 'required',
             'amount' => 'required',
+            'image' => 'required',
             'status' => 'required',
+            'recorded_by' => 'required',
         ]);
         $debt = Debt::query()->create($validator);
         return response()->json(['message' => 'Debt created!', 'debt' => $debt]);
@@ -46,6 +48,7 @@ class DebtController extends Controller
         $validator = $request->validate([
             'date' => 'required',
             'amount' => 'required',
+            'recorded_by' => 'required',
         ]);
         $debt->update($validator);
         return response()->json(['message' => 'Debt updated!', 'debt' => $debt]);
